@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
+
+export const maxDuration = 60
 import Anthropic from '@anthropic-ai/sdk'
 import { IDEAL_QUESTIONS, IdealSelfType } from '@/data/ideal-self'
 
