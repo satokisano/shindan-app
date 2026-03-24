@@ -113,6 +113,16 @@ export default function RelationshipBreakerPage() {
 
   if (phase === 'result' && result) {
     const typeInfo = BREAKER_TYPES[result.type]
+    if (!typeInfo) {
+      return (
+        <main className="min-h-screen flex flex-col items-center justify-center px-4">
+          <div className="text-center space-y-4">
+            <p className="text-sm text-gray-600">結果の取得に失敗しました。</p>
+            <button onClick={handleRetry} className="text-sm text-slate-500 underline">もう一度試す</button>
+          </div>
+        </main>
+      )
+    }
     return (
       <main className="min-h-screen flex flex-col items-center justify-start px-4 py-12">
         <div className="max-w-md w-full space-y-6">

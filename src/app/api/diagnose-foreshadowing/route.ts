@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
+import Anthropic from '@anthropic-ai/sdk'
+import { FORESHADOWING_QUESTIONS, FORESHADOWING_TYPES, ForeshadowingType } from '@/data/life-foreshadowing'
 
 export const maxDuration = 60
-import Anthropic from '@anthropic-ai/sdk'
-import { FORESHADOWING_QUESTIONS, ForeshadowingType } from '@/data/life-foreshadowing'
 
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -67,6 +67,7 @@ ${qaText}
       shareText: string
     }
 
+    if (!FORESHADOWING_TYPES[result.type]) throw new Error(`Invalid type: ${result.type}`)
     return NextResponse.json({ success: true, data: result })
   } catch (e) {
     console.error('[diagnose-foreshadowing]', e)

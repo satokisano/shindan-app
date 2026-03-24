@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
+import Anthropic from '@anthropic-ai/sdk'
+import { BREAKER_QUESTIONS, BREAKER_TYPES, BreakerType } from '@/data/relationship-breaker'
 
 export const maxDuration = 60
-import Anthropic from '@anthropic-ai/sdk'
-import { BREAKER_QUESTIONS, BreakerType } from '@/data/relationship-breaker'
 
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -67,6 +67,7 @@ ${qaText}
       shareText: string
     }
 
+    if (!BREAKER_TYPES[result.type]) throw new Error(`Invalid type: ${result.type}`)
     return NextResponse.json({ success: true, data: result })
   } catch (e) {
     console.error('[diagnose-breaker]', e)

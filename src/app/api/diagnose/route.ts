@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
+import { QUESTIONS, RESULT_TYPES, ResultType } from '@/data/brain-voice'
 
 export const maxDuration = 60
-import { QUESTIONS, ResultType } from '@/data/brain-voice'
 
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -72,6 +72,7 @@ ${qaText}
       shareText: string
     }
 
+    if (!RESULT_TYPES[result.type]) throw new Error(`Invalid type: ${result.type}`)
     return NextResponse.json({ success: true, data: result })
   } catch (e) {
     console.error('[diagnose]', e)

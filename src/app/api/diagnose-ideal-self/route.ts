@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
+import Anthropic from '@anthropic-ai/sdk'
+import { IDEAL_QUESTIONS, IDEAL_SELF_TYPES, IdealSelfType } from '@/data/ideal-self'
 
 export const maxDuration = 60
-import Anthropic from '@anthropic-ai/sdk'
-import { IDEAL_QUESTIONS, IdealSelfType } from '@/data/ideal-self'
 
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -67,6 +67,7 @@ ${qaText}
       shareText: string
     }
 
+    if (!IDEAL_SELF_TYPES[result.type]) throw new Error(`Invalid type: ${result.type}`)
     return NextResponse.json({ success: true, data: result })
   } catch (e) {
     console.error('[diagnose-ideal-self]', e)
