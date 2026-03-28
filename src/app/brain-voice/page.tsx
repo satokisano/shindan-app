@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { QUESTIONS, RESULT_TYPES, ResultType } from '@/data/brain-voice'
 import { ArrowLeft, ArrowRight, Sparkles, Share2, RotateCcw } from 'lucide-react'
 import Link from 'next/link'
+import AdBanner from '@/components/AdBanner'
 
 type Phase = 'quiz' | 'loading' | 'result'
 
@@ -174,6 +175,8 @@ export default function BrainVoicePage() {
               もう一度
             </button>
           </div>
+
+          <AdBanner />
 
           <Link href="/" className="block text-center text-xs text-gray-400 hover:text-gray-600 transition-colors">
             他の診断を見る
