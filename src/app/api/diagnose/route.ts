@@ -24,6 +24,7 @@ export async function POST(req: NextRequest) {
     const response = await client.messages.create({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 1024,
+      system: 'あなたはJSONのみを出力するAPIです。いかなる場合も純粋なJSONオブジェクトのみを返してください。説明・謝罪・前置き・マークダウンは一切不要です。',
       messages: [
         {
           role: 'user',
@@ -49,7 +50,7 @@ ${qaText}
 - genjitsu_tosou_dj: 現実逃避DJ（嫌なことから即座に逃げるタイプ）
 
 【出力形式】
-以下のJSONのみを返してください。
+以下のJSONのみを返してください。余計な説明・謝罪・前置きは一切不要です。必ずJSONのみを出力してください。
 
 {
   "type": "（タイプID）",
